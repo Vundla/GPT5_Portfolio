@@ -1,14 +1,73 @@
 version: "3.8"
+
 services:
+  # PostgreSQL Database
   postgres:
     image: postgres:16
     environment:
       POSTGRES_USER: vundla
-      POSTGRES_PASSWORD: Mv@20217$
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-changeme}
       POSTGRES_DB: GPT5_DB
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vundla -d GPT5_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Solid.js Frontend
+  portfolio:
+    build: ./apps/portfolio-site
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-gateway
+    environment:
+      - VITE_API_URL=http://localhost:8000
+
+  # ASP.NET Core API Gateway
+  api-gateway:
+    build: ./apps/api-gateway
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ai-playground:
+        condition: service_started
+      php-columns:
+        condition: service_started
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - AiPlayground__Url=http://ai-playground:7000
+      - PhpColumns__Url=http://php-columns:80
+
+  # FastAPI AI Engine
+  ai-playground:
+    build: ./apps/ai-playground
+    ports:
+      - "7000:7000"
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  # PHP Column Service
+  php-columns:
+    build: ./apps/php-columns
+    ports:
+      - "9000:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=GPT5_DB
+      - DB_USER=vundla
+      - DB_PASS=${DB_PASSWORD:-changeme}
+
 volumes:
   pgdata:
