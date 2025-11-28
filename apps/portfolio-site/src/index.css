@@ -1,0 +1,167 @@
+/* GPT5 Portfolio - Global Styles */
+/* Leopard Print Background Theme */
+
+/* CSS Reset and Base Styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Root variables for consistent theming */
+:root {
+  --leopard-base: #D4A574;
+  --leopard-spot-dark: #2C1810;
+  --leopard-spot-center: #8B6914;
+  --text-primary: #1a1a1a;
+  --text-secondary: #333333;
+  --text-light: #ffffff;
+  --overlay-dark: rgba(0, 0, 0, 0.6);
+  --overlay-light: rgba(255, 255, 255, 0.85);
+}
+
+/* Global leopard print background applied to html and body */
+html {
+  min-height: 100%;
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-primary);
+  
+  /* Leopard print background - applied globally */
+  background-image: url('/leopard-print.svg');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  background-attachment: fixed;
+  background-color: var(--leopard-base); /* Fallback color */
+}
+
+/* Root app container - ensures background shows through */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content area with semi-transparent overlay for readability */
+.main-content,
+main,
+.page,
+.dashboard,
+.tab-content {
+  background-color: var(--overlay-light);
+  padding: 20px;
+  border-radius: 8px;
+  margin: 10px;
+}
+
+/* Optional blur effect with feature query for progressive enhancement */
+@supports (backdrop-filter: blur(2px)) {
+  .main-content,
+  main,
+  .page,
+  .dashboard,
+  .tab-content {
+    backdrop-filter: blur(2px);
+  }
+}
+
+/* Headers and navigation with darker overlay */
+header,
+nav,
+.navbar,
+.sidebar {
+  background-color: var(--overlay-dark);
+  color: var(--text-light);
+  padding: 15px 20px;
+}
+
+/* Links styling */
+a {
+  color: var(--leopard-spot-dark);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--leopard-spot-center);
+}
+
+/* Button styles matching leopard theme */
+button,
+.btn {
+  background-color: var(--leopard-spot-dark);
+  color: var(--text-light);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover,
+.btn:hover {
+  background-color: var(--leopard-spot-center);
+}
+
+/* Card components with subtle background */
+.card {
+  background-color: var(--overlay-light);
+  border: 2px solid var(--leopard-spot-dark);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 15px 0;
+  box-shadow: 0 4px 6px rgba(44, 24, 16, 0.2);
+}
+
+/* Footer styling */
+footer {
+  background-color: var(--overlay-dark);
+  color: var(--text-light);
+  padding: 20px;
+  text-align: center;
+  margin-top: auto;
+}
+
+/* Utility classes for leopard theme integration */
+.leopard-overlay {
+  background-color: var(--overlay-light);
+  backdrop-filter: blur(3px);
+}
+
+.leopard-border {
+  border: 3px solid var(--leopard-spot-dark);
+}
+
+.leopard-accent {
+  color: var(--leopard-spot-center);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  body {
+    background-size: 150px 150px;
+  }
+  
+  .main-content,
+  main,
+  .page,
+  .dashboard,
+  .tab-content {
+    margin: 5px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    background-size: 100px 100px;
+  }
+}
