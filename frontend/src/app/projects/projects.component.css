@@ -1,0 +1,78 @@
+:host {
+    display: block;
+    margin: 0;
+    padding: 2rem;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+.app-hero {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.05); /* Very subtle white */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+/* Projects Grid */
+.projects-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+[class*="col-"] {
+    flex: 1 1 300px;
+}
+
+/* Column Rules */
+.col-md-3 { flex: 0 0 calc(25% - 1.5rem); max-width: calc(25% - 1.5rem); }
+.col-md-4 { flex: 0 0 calc(33.333% - 1.5rem); max-width: calc(33.333% - 1.5rem); }
+.col-md-6 { flex: 0 0 calc(50% - 1.5rem); max-width: calc(50% - 1.5rem); }
+.col-md-12 { flex: 0 0 100%; }
+
+.project-card {
+    background: transparent;
+    color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--sys-primary, #6200ee);
+}
+
+.tags-container {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.project-tag {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: 'Fira Code', monospace;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+    [class*="col-"] {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}

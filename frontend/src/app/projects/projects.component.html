@@ -1,0 +1,56 @@
+<header class="app-hero">
+    <h1><mat-icon style="font-size: 2rem;">architecture</mat-icon> AI Project Architect</h1>
+    <p>Describe your project below to receive an architectural review on Fault Tolerance and Scalability using our AI.</p>
+</header>
+  
+<section class="ai-input-wrapper glass-panel">
+    <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Project Description</mat-label>
+        <textarea matInput #projectInput placeholder="Example: A banking microservice using Orleans for actor-based transactions..." rows="5"></textarea>
+    </mat-form-field>
+    
+    <div style="display: flex; align-items: center; justify-content: flex-end; margin-top: 1rem;">
+        <button mat-raised-button color="primary" 
+                (click)="analyzeProject(projectInput.value)" 
+                [disabled]="isAnalyzing">
+            <span *ngIf="!isAnalyzing"><mat-icon>analytics</mat-icon> Analyze Architecture</span>
+            <span *ngIf="isAnalyzing">Analyzing via Semantic Kernel...</span>
+        </button>
+    </div>
+</section>
+
+<div *ngIf="aiReview" class="ai-result glass-panel" style="margin-top: 2rem;">
+    <h4><mat-icon>auto_awesome</mat-icon> Analysis Complete</h4>
+    <p style="white-space: pre-line; line-height: 1.6; font-family: 'Roboto Mono', monospace;">{{ aiReview }}</p>
+</div>
+
+<mat-divider style="margin: 3rem 0; border-color: rgba(255,255,255,0.1);"></mat-divider>
+
+<!-- Projects Grid -->
+<h2 style="margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
+    <mat-icon style="color: var(--sys-secondary)">rocket_launch</mat-icon> Showcased Projects
+</h2>
+
+<div class="projects-grid">
+    <div *ngFor="let proj of projects" [class]="proj.cols" style="display: flex;">
+        <mat-card class="project-card glass-panel" style="width: 100%;">
+            <mat-card-header>
+                <mat-card-title>{{ proj.title }}</mat-card-title>
+                <div class="tags-container" style="margin-left: auto;">
+                    <span *ngFor="let tag of proj.tags" class="project-tag">{{ tag }}</span>
+                </div>
+            </mat-card-header>
+            <mat-card-content style="margin-top: 1rem; min-height: 60px;">
+                <p style="color: var(--sys-text-muted);">{{ proj.description }}</p>
+            </mat-card-content>
+            <mat-card-actions align="end">
+                <button mat-button color="accent" (click)="openProject(proj.link)">APP</button>
+                <button *ngIf="proj.backendLink" mat-button color="warn" (click)="openProject(proj.backendLink)">API</button>
+
+                <button mat-icon-button color="primary" (click)="analyzeProject(proj.description)" title="Analyze this project with AI">
+                    <mat-icon>analytics</mat-icon>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

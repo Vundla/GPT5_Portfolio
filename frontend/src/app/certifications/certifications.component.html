@@ -1,0 +1,40 @@
+<header class="app-hero">
+    <h1><mat-icon style="font-size: 2rem; vertical-align: middle;">verified_user</mat-icon> Verified Capabilities</h1>
+    <p>Public ledger of technical certifications and achievements.</p>
+    <p *ngIf="statusMessage" class="status-badge fa-spin"><mat-icon inline="true">sync</mat-icon> {{statusMessage}}</p>
+</header>
+  
+<div class="cert-sections">
+    <div *ngFor="let category of categories">
+        <div *ngIf="groupedCertifications[category] && groupedCertifications[category].length > 0" class="cert-category">
+            <h2 class="category-title">{{ category }}</h2>
+            <div class="cert-grid">
+                <div *ngFor="let cert of groupedCertifications[category]" [class]="cert.designParams.columns">
+                    <mat-card [class]="'cert-card glass-panel ' + cert.designParams.style">
+                        <mat-card-header>
+                            <div mat-card-avatar style="background: var(--sys-surface); display: flex; align-items: center; justify-content: center;">
+                                <mat-icon>school</mat-icon>
+                            </div>
+                            <mat-card-title>{{ cert.title }}</mat-card-title>
+                            <mat-card-subtitle style="color: var(--sys-primary)">{{ cert.issuer }}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content style="margin-top: 1rem;">
+                            <p class="mono-text" style="font-size: 0.9rem;">
+                                <span style="color: var(--sys-success)">>></span> {{ cert.aiAnalysis }}
+                            </p>
+                            <button mat-icon-button color="primary" (click)="analyzeWithAi(cert)" matTooltip="Re-Analyze with Gemini AI">
+                                <mat-icon>psychology</mat-icon>
+                            </button>
+                        </mat-card-content>
+                        <mat-card-actions align="end">
+                            <button mat-button color="accent" (click)="viewCertificate(cert.fileUrl)">
+                                {{ cert.fileUrl ? 'VIEW CERTIFICATE' : 'VERIFY_HASH' }}
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>
+            <mat-divider style="margin: 2rem 0; border-color: rgba(255,255,255,0.1);"></mat-divider>
+        </div>
+    </div>
+</div>

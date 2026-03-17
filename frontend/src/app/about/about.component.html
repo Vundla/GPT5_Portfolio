@@ -1,0 +1,45 @@
+<header class="app-hero">
+  <div class="hero-content">
+    <h1 style="font-size: 3rem; margin-bottom: 0.5rem; text-transform: uppercase; font-family: monospace;">
+      <span style="color: var(--sys-primary)">>></span> Resilience First
+    </h1>
+    <h3 style="font-weight: 300;">Software Engineering. Fault Tolerance. Distributed Systems.</h3>
+    <br/>
+    <p>A graduate of <strong>ALX Africa</strong> specializing in Backend Engineering.</p>
+    <p>Later joined <strong>Uvu Africa</strong> mastering Full Stack Development.</p>
+    <p>Furthered education with an intensive <strong>AI & Machine Learning Bootcamp</strong>.</p>
+  </div>
+</header>
+
+<section class="bio-section glass-panel">
+  <div class="bio-grid">
+    <div class="bio-text">
+      <h2><mat-icon style="vertical-align: middle; margin-right: 8px;">psychology</mat-icon>Philosophy: "Let It Crash"</h2>
+      <p>I don't just write code; I design systems that expect failure.</p>
+      <p>My portfolio is built on principles of <strong>Erlang/OTP</strong>, <strong>Actor Models (Pony, Orleans)</strong>, and <strong>Chaos Engineering</strong>. I believe software should be as reliable as electricity.</p>
+      <p class="mono-text" style="color: var(--sys-secondary); margin-top: 1rem;">// Certified in building systems that heal themselves.</p>
+    </div>
+  </div>
+</section>
+
+<mat-divider style="margin: 2rem 0; border-color: rgba(255,255,255,0.1);"></mat-divider>
+
+<section class="skills-section">
+  <h2 style="text-align: center; margin-bottom: 2rem;">Technical Arsenal</h2>
+  
+  <div class="skills-grid">
+    <mat-card *ngFor="let category of skillCategories" class="skill-card glass-panel">
+      <mat-card-header>
+        <div mat-card-avatar class="skill-icon">
+          <mat-icon>{{category.icon}}</mat-icon>
+        </div>
+        <mat-card-title>{{category.title}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="skill-list">
+          <span *ngFor="let skill of category.skills" class="skill-badge">{{skill}}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>

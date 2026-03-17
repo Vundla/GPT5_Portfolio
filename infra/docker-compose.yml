@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # Primary Database (PostgreSQL)
+  postgres:
+    image: postgres:15-alpine
+    container_name: portfolio-postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: securepassword123
+      POSTGRES_DB: portfolio_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - portfolio-network
+
+  # Replicas & High Availability (Cassandra)
+  cassandra:
+    image: cassandra:4.1
+    container_name: portfolio-cassandra
+    environment:
+      CASSANDRA_CLUSTER_NAME: "PortfolioCluster"
+      CASSANDRA_DC: "DC1"
+      CASSANDRA_RACK: "Rack1"
+      CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+    ports:
+      - "9042:9042"
+    volumes:
+      - cassandra_data:/var/lib/cassandra
+    networks:
+      - portfolio-network
+    restart: on-failure
+
+  # Secret Management (HashiCorp Vault)
+  vault:
+    image: vault:1.13.1
+    container_name: portfolio-vault
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: root
+      VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
+    cap_add:
+      - IPC_LOCK
+    networks:
+      - portfolio-network
+
+  # Security (Fail2Ban - simulated via generic container for environment setup)
+  # In a real environment, Fail2Ban runs on the host or a dedicated security container mounting logs.
+  security-agent:
+    image: alpine:latest
+    command: sh -c "echo 'Starting Fail2Ban simulation and log monitoring...' && tail -f /dev/null"
+    networks:
+      - portfolio-network
+
+volumes:
+  postgres_data:
+  cassandra_data:
+
+networks:
+  portfolio-network:
+    driver: bridge

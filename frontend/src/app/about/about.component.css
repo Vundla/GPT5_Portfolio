@@ -1,0 +1,64 @@
+:host {
+    display: block;
+    margin: 0;
+    padding: 2rem;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+.app-hero {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-weight: 700;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.05); /* Very subtle white */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+/* Skills Grid */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.skill-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white; /* Ensure text is visible on dark backgrounds */
+}
+
+.skill-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--sys-secondary, #6200ee);
+    color: white;
+    border-radius: 50%;
+    margin-right: 1rem;
+}
+
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.skill-badge {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}

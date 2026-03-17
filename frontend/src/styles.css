@@ -1,0 +1,81 @@
+/* Global "Intelligent System" Theme */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+:root {
+  --sys-background: #0a0e17; /* Deep Cyber Void */
+  --sys-surface: #111625;    /* Dark Panel */
+  --sys-surface-glass: rgba(17, 22, 37, 0.7);
+  --sys-primary: #00f0ff;    /* Neon Cyan */
+  --sys-secondary: #7000ff;  /* Neon Purple */
+  --sys-accent: #ff0055;     /* Alert Red/Pink */
+  --sys-text-main: #e0e6ed;
+  --sys-text-muted: #94a3b8;
+  --sys-success: #00ff9d;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--sys-background);
+  color: var(--sys-text-main);
+  overflow-x: hidden;
+}
+
+/* Scrollbar Design */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--sys-background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--sys-surface);
+  border: 1px solid var(--sys-primary);
+  border-radius: 4px;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: var(--sys-surface-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 240, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border-radius: 16px;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem 0;
+}
+
+h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(to right, var(--sys-text-main), var(--sys-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+}
+
+.mono-text {
+  font-family: var(--font-mono);
+  color: var(--sys-primary);
+}
+
+/* Angular Material Overrides for the Theme */
+.mat-mdc-card {
+  background-color: var(--sys-surface) !important;
+  color: var(--sys-text-main) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mat-mdc-raised-button.mat-primary {
+  --mdc-protected-button-container-color: var(--sys-primary);
+  --mdc-protected-button-label-text-color: #000;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}

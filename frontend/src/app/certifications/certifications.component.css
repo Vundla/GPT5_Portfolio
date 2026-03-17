@@ -1,0 +1,77 @@
+:host {
+    display: block;
+    margin: 0;
+    padding: 2rem;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+.app-hero {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.status-badge {
+    background: rgba(255, 255, 0, 0.1);
+    color: yellow;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px solid yellow;
+}
+
+.category-title {
+    color: var(--sys-secondary);
+    border-left: 4px solid var(--sys-secondary);
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.cert-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Simulate Bootstrap Col classes roughly */
+[class*="col-"] {
+    flex: 1 1 300px; /* Default basis */
+}
+
+/* Specific helpers if needed, though flex + basis usually suffices */
+.col-md-3 { flex: 0 0 calc(25% - 1rem); max-width: calc(25% - 1rem); }
+.col-md-4 { flex: 0 0 calc(33.333% - 1rem); max-width: calc(33.333% - 1rem); }
+.col-md-6 { flex: 0 0 calc(50% - 1rem); max-width: calc(50% - 1rem); }
+.col-md-12 { flex: 0 0 100%; max-width: 100%; }
+
+/* Mobile fallback */
+@media (max-width: 768px) {
+    [class*="col-"] {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.05); /* Very subtle white */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.cert-card {
+    background: transparent;
+    color: white;
+}
+
+/* Card Styles borrowed from PHP logic */
+.card-primary { border-left: 4px solid var(--sys-primary, #6200ee); }
+.card-accent { border-left: 4px solid var(--sys-secondary, #03dac6); }
+
+.mono-text {
+    font-family: 'Fira Code', monospace;
+}
