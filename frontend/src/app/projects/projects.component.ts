@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-projects',
@@ -44,17 +45,19 @@ export class ProjectsComponent {
     if (!description) return;
     
     this.isAnalyzing = true;
-    this.snackBar.open('Initializing AI Analysis submodule...', 'OK', { duration: 2000 });
+    this.snackBar.open('Consulting AI Architect on System Resilience...', 'OK', { duration: 3000 });
 
-    this.http.post<any>('https://localhost:7001/api/certifications/analyze', { description })
+    // Request specifically targets the "Project Resilience" analysis
+    this.http.post<any>(`${environment.apiUrl}/AiAnalyzer/project`, { content: description })
       .subscribe({
         next: (result) => {
-          this.aiReview = result.Review;
+          // The new backend returns { analysis: "..." }
+          this.aiReview = result.analysis || "Analysis completed.";
           this.isAnalyzing = false;
         },
         error: (err) => {
-          console.error(err);
-          this.aiReview = "Error: AI Service Unavailable. Please try again later.";
+          console.error('AI Service Error:', err);
+          this.aiReview = "⚠️ Capability degraded: AI Services unavailable. (Fault Tolerance: Circuit Breaker Open)";
           this.isAnalyzing = false;
         }
       });

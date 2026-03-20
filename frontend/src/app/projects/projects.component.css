@@ -19,6 +19,20 @@
     border-radius: 12px;
 }
 
+.ai-result.glass-panel {
+    /* Much brighter background for readability */
+    background: rgba(30, 40, 60, 0.95); 
+    border: 2px solid var(--sys-success, #00ff9d);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+    color: #e0e6ed; /* High contrast text */
+    padding: 1.5rem;
+}
+
+.ai-result p {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
 mat-form-field {
     width: 100%;
 }

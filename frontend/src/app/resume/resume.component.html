@@ -1,0 +1,82 @@
+<div class="resume-container glass-panel animate-fade-in">
+  
+  <header class="resume-header">
+    <div class="header-content">
+      <h1 class="name-glitch" [attr.data-text]="resumeData.name">{{ resumeData.name }}</h1>
+      <h2 class="role-subtitle">{{ resumeData.title }}</h2>
+      <p class="summary">{{ resumeData.summary }}</p>
+      
+      <div class="contact-info">
+        <span><mat-icon inline>email</mat-icon> {{ resumeData.email }}</span>
+        <span><mat-icon inline>phone</mat-icon> {{ resumeData.phone }}</span>
+        <span><mat-icon inline>location_on</mat-icon> {{ resumeData.location }}</span>
+      </div>
+      
+      <div class="contact-info social-links" style="margin-top: 1rem;">
+        <a [href]="resumeData.socials.github" target="_blank"><mat-icon inline>code</mat-icon> GitHub</a>
+        <a [href]="resumeData.socials.linkedin" target="_blank"><mat-icon inline>work</mat-icon> LinkedIn</a>
+        <a [href]="resumeData.socials.orcid" target="_blank"><mat-icon inline>fingerprint</mat-icon> ORCID</a>
+      </div>
+    </div>
+    
+    <div class="actions">
+      <button mat-flat-button color="accent" (click)="downloadResume()" class="download-btn">
+        <mat-icon>download</mat-icon> DOWNLOAD CV_PDF
+      </button>
+    </div>
+  </header>
+
+  <mat-divider style="border-color: rgba(255,255,255,0.1); margin: 2rem 0;"></mat-divider>
+
+  <div class="resume-body">
+    
+    <!-- Skills Section -->
+    <section class="skills-section">
+      <h3 class="section-title"><mat-icon>memory</mat-icon> TECHNICAL_CAPABILITIES</h3>
+      
+      <div class="skills-grid">
+        <div class="skill-category glass-card" *ngFor="let category of resumeData.skills">
+          <h4 class="category-name">{{ category.category }}</h4>
+          <div class="tags">
+            <span class="tech-tag" *ngFor="let tech of category.technology">{{ tech }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience-section">
+      <h3 class="section-title"><mat-icon>work_history</mat-icon> EXPERIENCE_LOG</h3>
+      
+      <div class="timeline">
+        <div class="timeline-item" *ngFor="let job of resumeData.experience">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass-card">
+            <div class="job-header">
+              <h4 class="job-role">{{ job.role }}</h4>
+              <span class="job-period">{{ job.period }}</span>
+            </div>
+            <h5 class="company-name">{{ job.company }}</h5>
+            <p class="job-desc">{{ job.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education-section">
+      <h3 class="section-title"><mat-icon>school</mat-icon> KNOWLEDGE_BASE</h3>
+      
+      <div class="education-list">
+        <div class="edu-item glass-card" *ngFor="let edu of resumeData.education">
+          <h4 class="degree">{{ edu.degree }}</h4>
+          <div class="edu-meta">
+            <span class="institution">{{ edu.institution }}</span>
+            <span class="grad-year">{{ edu.year }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>

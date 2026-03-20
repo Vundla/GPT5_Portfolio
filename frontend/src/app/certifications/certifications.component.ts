@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { timeout } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 interface Certification {
   id: number;
@@ -34,7 +36,8 @@ export class CertificationsComponent implements OnInit {
 
   loadCertifications() {
     this.statusMessage = "Syncing with Cassandra Replica...";
-    this.http.get<Certification[]>('https://localhost:7001/api/certifications')
+    this.http.get<Certification[]>(`${environment.apiUrl}/certifications`)
+      .pipe(timeout(5000))
       .subscribe({
         next: (data) => {
             this.certifications = data;
@@ -213,7 +216,7 @@ export class CertificationsComponent implements OnInit {
     const originalText = cert.aiAnalysis;
     cert.aiAnalysis = "Encrypting data for Gemini AI Processing..."; // Loading state
     
-    this.http.post<any>('https://localhost:7001/api/AiAnalyzer/certification', { content: cert.title + " by " + cert.issuer })
+    this.http.post<any>(`${environment.apiUrl}/AiAnalyzer/certification`, { content: cert.title + " by " + cert.issuer })
       .subscribe({
         next: (response) => {
           cert.aiAnalysis = response.analysis;

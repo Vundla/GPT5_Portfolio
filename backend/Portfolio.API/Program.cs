@@ -26,8 +26,16 @@ builder.Services.AddHttpClient("ExternalService")
 
 // --- 2. Database Integration (PostgreSQL & Cassandra) ---
 // PostgreSQL Primary Database
-builder.Services.AddDbContext<PortfolioContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+try 
+{
+    builder.Services.AddDbContext<PortfolioContext>(options =>
+        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
+                          o => o.EnableRetryOnFailure())); // Add retry resilience here
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"[Warning] Database setup failed: {ex.Message}");
+}
 
 // Cassandra Setup for High Availability / Replicas with Fault Tolerance
 try 
@@ -72,7 +80,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200")
+            policy.WithOrigins("http://localhost:4200", "http://localhost:4201")
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -89,7 +97,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowFrontend");
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection(); // Disabled for local dev without certificates
+
 app.UseAuthorization();
 
 

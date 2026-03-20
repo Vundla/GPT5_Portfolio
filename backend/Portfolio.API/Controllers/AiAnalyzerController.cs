@@ -38,9 +38,12 @@ public class AiAnalyzerController : ControllerBase
             return BadRequest("Content is required.");
         }
 
-        var prompt = $"Act as a technical interviewer. Analyze this project description: '{request.Content}'. " +
-                     "Highlight the most impressive technical aspect or complexity solved. " +
-                     "Keep it under 25 words.";
+        var prompt = $"Act as a senior software architect specializing in reliability engineering. " +
+                     $"Analyze this project description: '{request.Content}'. " +
+                     $"Focus ONLY on Fault Tolerance and Resilience. " +
+                     $"Identify potential failure points and suggest architectural patterns (like Circuit Breakers, Retry Policies, Bulkheads, or Event Sourcing) that could enhance its robustness. " +
+                     $"If the description already mentions these, validate their usage. " +
+                     $"Output a concise analysis (max 3 sentences) starting with 'Resilience Analysis:'.";
 
         var analysis = await _geminiService.AnalyzeContentAsync(prompt);
         return Ok(new { analysis });

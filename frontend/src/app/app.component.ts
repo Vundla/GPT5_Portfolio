@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs'; // RxJS for "fault tolerance" on frontend via retry
+import { timeout } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 interface Certification {
   id: number;
@@ -40,7 +42,8 @@ export class AppComponent implements OnInit {
 
   loadCertifications() {
     // Calling backend API
-    this.http.get<Certification[]>('https://localhost:7001/api/certifications')
+    this.http.get<Certification[]>(`${environment.apiUrl}/certifications`)
+      .pipe(timeout(5000))
       .subscribe({
         next: (data) => this.certifications = data,
         error: (err) => {
@@ -56,9 +59,15 @@ export class AppComponent implements OnInit {
   }
 
   analyzeProject(description: string) {
-    this.http.post<any>('https://localhost:7001/api/certifications/analyze', { description })
-      .subscribe(result => {
-        this.aiReview = result.Review;
+    this.http.post<any>(`${environment.apiUrl}/AiAnalyzer/project`, { content: description })
+      .subscribe({
+        next: (result) => {
+          this.aiReview = result.analysis || 'Analysis completed.';
+        },
+        error: (err) => {
+          console.error('AI Service Error:', err);
+          this.aiReview = '⚠️ Capability degraded: AI Services unavailable. (Fault Tolerance: Circuit Breaker Open)';
+        }
       });
   }
 }

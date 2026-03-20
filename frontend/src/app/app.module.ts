@@ -23,11 +23,13 @@ import { AppComponent } from './app.component';
 import { AboutComponent } from './about/about.component';
 import { CertificationsComponent } from './certifications/certifications.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { ResumeComponent } from './resume/resume.component';
 
 const routes: Routes = [
   { path: '', component: AboutComponent },
   { path: 'certifications', component: CertificationsComponent },
   { path: 'projects', component: ProjectsComponent },
+  { path: 'resume', component: ResumeComponent },
   { path: '**', redirectTo: '' }
 ];
 
@@ -36,7 +38,8 @@ const routes: Routes = [
     AppComponent,
     AboutComponent,
     CertificationsComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    ResumeComponent
   ],
   imports: [
     BrowserModule,
